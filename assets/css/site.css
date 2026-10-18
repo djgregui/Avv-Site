@@ -1,0 +1,1378 @@
+/* ==========================================================================
+   AVV TRAVEL — ESTILOS DO SITE
+   ==========================================================================
+   IMPORTANTE: A ordem das regras foi preservada da versão aprovada, pois
+   estilos de ajustes finais substituem intencionalmente regras anteriores.
+
+   Para alterar:
+     - Cores: bloco :root no início deste ficheiro.
+     - Hero: secção 4 e ajustes de animação.
+     - Formulários: booking / contact e selects personalizados.
+     - Âncoras: #reservar e #contato (valores ajustados manualmente).
+
+   Não trocar a ordem dos @media sem verificar o resultado visual.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* ==========================================================================
+   1. VARIÁVEIS GLOBAIS — cores, fontes, larguras
+   Muda aqui a paleta toda de uma vez (ex: --yellow para a cor da tua marca)
+   ========================================================================== */
+
+:root{
+ --black:#090909;--white:#fff;--cream:#f4f1ea;--line:rgba(9,9,9,.13);
+ --yellow:#c9a227;--grey:#8b8a84;--max:1320px;--ease:cubic-bezier(.2,.8,.2,1)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--black);font-family:"DM Sans",sans-serif}
+a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{border:0}
+.container{width:min(calc(100% - 48px),var(--max));margin:auto}
+
+/* ==========================================================================
+   2. CURSOR PERSONALIZADO + BARRA DE PROGRESSO DE SCROLL
+   ========================================================================== */
+.cursor{position:fixed;z-index:999;width:14px;height:14px;border-radius:50%;background:var(--yellow);pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cursor.big{width:82px;height:82px}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--yellow);z-index:1000;width:0}
+
+/* ==========================================================================
+   3. NAVEGAÇÃO FIXA (topo) + MENU DE ECRÃ INTEIRO
+   ========================================================================== */
+.nav{position:fixed;z-index:100;top:0;width:100%;color:#fff;padding:23px 0;transition:.4s var(--ease)}
+.nav.scrolled{background:rgba(9,9,9,.82);backdrop-filter:blur(18px);padding:15px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{font:800 25px/1 Montserrat;letter-spacing:-.08em}.logo span{font-weight:500}
+.nav-center{display:flex;gap:30px;font-size:12px}.nav-center a{opacity:.7;transition:.2s}.nav-center a:hover{opacity:1;color:var(--yellow)}
+.nav-right{display:flex;align-items:center;gap:18px;font-size:12px}
+.menu-btn{display:flex;gap:10px;align-items:center;color:#fff;background:none;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.menu-btn:hover{color:var(--yellow)}
+.menu-icon{width:29px;height:16px;position:relative}.menu-icon i{position:absolute;left:0;width:100%;height:1px;background:#fff;transition:.3s}.menu-icon i:first-child{top:3px}.menu-icon i:last-child{bottom:3px}
+.menu-overlay{position:fixed;inset:0;background:var(--black);color:#fff;z-index:90;transform:translateY(-100%);transition:transform .7s var(--ease);padding-top:110px}
+.menu-overlay.open{transform:none}.menu-grid{display:grid;grid-template-columns:1.5fr 1fr;height:calc(100vh - 110px);align-items:center}
+.menu-links a{display:block;font:700 clamp(45px,7vw,100px)/.92 Montserrat;letter-spacing:-.075em;color:#fff;transition:.3s}.menu-links a:hover{color:var(--yellow);transform:translateX(15px)}
+.menu-info{border-left:1px solid #333;padding-left:45px;color:#aaa;max-width:360px;line-height:1.7;font-size:14px}.menu-info strong{color:#fff;display:block;margin-bottom:10px}
+
+/* ==========================================================================
+   4. HERO — vídeo de fundo + título principal
+   ========================================================================== */
+.hero{
+    height: 94svh;
+    min-height:720px;
+    position:relative;
+    background:#111;
+    color:#fff;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+}
+/* IMAGEM DE FUNDO DO HERO */
+.hero-image{
+    position:absolute;
+    inset:0;
+    z-index:0;
+}
+.hero-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.5) contrast(1.05);
+    transform:scale(1.04);
+}
+/* OVERLAY ESCURO SOBRE A IMAGEM */
+.hero-image:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.25),
+        transparent 45%,
+        rgba(0,0,0,.78)
+    );
+}
+.hero-copy {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    /* AUMENTA PARA SUBIR OS TEXTOS */
+    padding-bottom: 40px;
+}
+.hero-kicker{
+   font-size:11px;
+   letter-spacing:.18em;
+   text-transform:uppercase;
+   color:#ddd;
+   margin-bottom:22px
+}
+/* AVV — SELETOR E FORMULÁRIO EXPANSÍVEL */
+
+@media (min-width: 1001px) {
+    .booking {
+        grid-template-columns:
+            190px minmax(0,1fr) minmax(0,1fr)
+            155px 125px 110px 155px;
+        gap: 10px;
+    }
+}
+
+.trip-switch {
+    min-height: 76px;
+    padding: 9px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background: #171717;
+}
+
+.trip-switch > span {
+    display: block;
+    color: #aaa;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.trip-toggle {
+    display: flex;
+    position: relative;
+    border-radius: 8px;
+    background: #090909;
+    padding: 3px;
+}
+
+.trip-option {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 3px;
+    color: #aaa;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .3s, color .3s;
+    white-space: nowrap;
+   font-size: 10px;
+   padding: 9px 5px;
+}
+
+.trip-option.active {
+    background: var(--yellow);
+    color: #090909;
+}
+
+.return-fields {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid #393022;
+    padding-top: 15px;
+    animation: avvReturnIn .35s ease both;
+}
+
+.return-fields[hidden] {
+    display: none !important;
+}
+
+.return-label {
+    grid-column: 1 / -1;
+    color: var(--yellow);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+}
+
+@keyframes avvReturnIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1000px) {
+    .trip-switch {
+        grid-column: 1 / -1;
+    }
+
+    .return-fields {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 650px) {
+    .trip-switch {
+        grid-column: 1;
+    }
+
+    .return-fields {
+        grid-column: 1;
+        grid-template-columns: 1fr;
+    }
+
+    .return-label {
+        grid-column: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .return-fields {
+        animation: none;
+    }
+}
+
+
+.hero h1{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(40px,5.2vw,78px);
+    font-weight:900;
+    line-height:.95;
+    letter-spacing:-.065em;
+    margin:0;
+    max-width:1120px;
+}
+
+.hero-logo {
+    position: absolute;
+    /* DISTÂNCIA DO TOPO */
+    top: 160px;
+    /* DISTÂNCIA DA DIREITA */
+    right: 170px;
+    /* TAMANHO DO LOGÓTIPO */
+    width: 310px;
+    max-width: 38%;
+    z-index: 1;
+    pointer-events: none;
+}
+.hero-logo img{width:100%;height:auto;display:block}
+.hero h1 em{
+   font-style:normal;
+   color:var(--yellow)
+}
+.hero-sub{
+   display:flex;
+   justify-content:space-between;
+   align-items:end;
+   margin-top:28px;
+   gap:40px
+}
+.hero-sub p{
+   max-width:430px;
+   color:#ddd;
+   font-size:15px;
+   line-height:1.6
+}
+.hero-stats{
+   display:flex;
+   gap:30px
+}
+.hero-stats b{
+   font:700 24px Montserrat;
+   display:block
+}
+.hero-stats span{
+   font-size:10px;
+   text-transform:uppercase;
+   letter-spacing:.1em;
+   color:#aaa
+}
+
+/* ==========================================================================
+   5. FORMULÁRIO DE RESERVA (flutuante, sobre o hero)
+   ========================================================================== */
+/* SECÇÃO DO FORMULÁRIO */
+.booking-shell {
+    position: relative;
+    margin-top: -70px;
+    z-index: 10;
+
+    padding-bottom: 100px;
+    background: transparent;
+    isolation: isolate;
+}
+
+/* DEGRADÊ ENTRE O HERO E A SECÇÃO CLARA */
+.booking-shell::before {
+    content: "";
+    position: absolute;
+
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: linear-gradient(
+        to bottom,
+        #090909 0%,
+        #090909 20%,
+        #292825 50%,
+        #858179 75%,
+        #f4f1ea 100%
+    );
+
+    z-index: -1;
+    pointer-events: none;
+}
+.booking{
+   background:#fff;
+   border-radius:24px;
+   padding:9px;
+   display:grid;
+   grid-template-columns:110px 1fr 1fr 155px 125px 145px;gap:7px;box-shadow:0 25px 70px rgba(0,0,0,.18)
+}
+.field{
+   background:#f1f0eb;
+   border-radius:16px;
+   padding:11px 14px
+}
+.field label{
+   font-size:9px;
+   display:block;
+   text-transform:uppercase;
+   letter-spacing:.13em;
+   color:#777;
+   margin-bottom:5px
+}
+.field input,.field select{
+   border:0;
+   background:none;
+   outline:0;
+   width:100%;
+   font-size:13px;
+   color:#111
+}
+.book-btn {
+    background: var(--yellow);
+    color: #090909;
+
+    border-radius: 12px;
+    min-height: 76px;
+    padding: 12px;
+
+    font-weight: 800;
+    font-size: 13px;
+
+    cursor: pointer;
+    transition: 0.3s;
+
+    box-shadow: 0 0 22px rgba(201, 162, 39, 0.28);
+}
+.book-btn:hover {
+    background: #e4bb40;
+    box-shadow: 0 0 32px rgba(201, 162, 39, 0.55);
+    transform: translateY(-2px);
+}
+.booking-trust {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px 35px;
+
+    color: #b5b5b5;
+    font-size: 11px;
+
+    margin-top: 18px;
+    padding: 0 20px 15px;
+}
+
+.booking-trust span::first-letter {
+    color: var(--yellow);
+}
+
+/* ==========================================================================
+   6. FAIXA ANIMADA (marquee) de palavras-chave
+   ========================================================================== */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap;padding:18px 0}.track{display:inline-flex;animation:marquee 26s linear infinite}.track span{font:600 13px Montserrat;letter-spacing:.12em;text-transform:uppercase;margin-right:60px}.track i{font-style:normal;color:var(--yellow);margin-right:60px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ==========================================================================
+   7. ESTILOS GERAIS DE SECÇÃO (títulos, texto, secção escura)
+   ========================================================================== */
+.section{padding:130px 0}.section.dark{background:var(--black);color:#fff}.head{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:60px}.eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:#888;margin-bottom:18px}.dark .eyebrow{color:#777}
+h2{font:700 clamp(45px,6.8vw,94px)/.89 Montserrat;letter-spacing:-.075em;margin:0;max-width:900px}.desc{max-width:390px;font-size:14px;line-height:1.7;color:#777}.dark .desc{color:#aaa}
+
+/* ==========================================================================
+   8. GRELHA DE DESTINOS/ROTAS (cartões com fotos)
+   ========================================================================== */
+.destinations{display:grid;grid-template-columns:1.25fr .75fr .75fr;grid-template-rows:330px 250px;gap:12px}.dest{position:relative;border-radius:23px;overflow:hidden;background:#222}.dest:first-child{grid-row:span 2}.dest-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:1s var(--ease)}.dest:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.8))}
+.dest:hover .dest-bg{transform:scale(1.07)}.dest-info{position:absolute;z-index:2;bottom:22px;left:22px;color:#fff}.dest-info small{display:block;color:#ddd;font-size:10px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}.dest-info h3{font:700 28px Montserrat;letter-spacing:-.05em;margin:0}.dest-info p{font-size:11px;color:#ccc;margin:3px 0 0}
+
+/* ==========================================================================
+   9. PROCESSO EM 4 PASSOS ("como funciona")
+   ========================================================================== */
+.process{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #292929;border-bottom:1px solid #292929}.step{padding:35px 25px 45px;border-right:1px solid #292929}.step:last-child{border:0}.num{font:500 11px Montserrat;color:var(--yellow);margin-bottom:70px}.step h3{font:700 20px Montserrat;letter-spacing:-.04em}.step p{font-size:13px;line-height:1.65;color:#999}
+
+/* ==========================================================================
+   10. SECÇÃO "SOBRE NÓS" (texto + vídeo/imagem + números)
+   ========================================================================== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}.visual{height:650px;border-radius:28px;overflow:hidden;position:relative;background:#ddd}.visual video,.visual img{width:100%;height:100%;object-fit:cover}.visual .stamp{position:absolute;bottom:20px;left:20px;background:rgba(255,255,255,.88);padding:14px 17px;border-radius:15px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.big-copy{font:600 clamp(36px,4.5vw,63px)/.98 Montserrat;letter-spacing:-.065em}.big-copy em{font-style:normal;color:var(--yellow)}.facts{display:grid;grid-template-columns:1fr 1fr;margin-top:45px;border-top:1px solid var(--line)}.fact{padding:22px 0;border-bottom:1px solid var(--line)}.fact strong{display:block;font:700 35px Montserrat;letter-spacing:-.05em;color:var(--yellow)}.fact span{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.1em}
+
+.booking {
+    background: rgba(8, 8, 8, 0.96);
+    border: 1px solid rgba(201, 162, 39, 0.85);
+    border-radius: 24px;
+
+    padding: 24px;
+
+    display: grid;
+    grid-template-columns: 130px 1fr 1fr 165px 125px 165px;
+    gap: 12px;
+
+    box-shadow:
+        0 0 12px rgba(201, 162, 39, 0.22),
+        0 0 35px rgba(201, 162, 39, 0.10),
+        0 25px 70px rgba(0, 0, 0, 0.5);
+}
+.field {
+    background: #171717;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+
+    min-height: 76px;
+    padding: 15px 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transition: border-color 0.3s;
+}
+
+.field:focus-within {
+    border-color: var(--yellow);
+}
+
+.field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+    border: 0;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    min-width: 0;
+    font-size: 13px;
+    color: #fff;
+    color-scheme: dark;
+}
+
+.field input::placeholder {
+    color: #999;
+}
+
+.field select option {
+    background: #171717;
+    color: #fff;
+}
+/* ==========================================================================
+   12. FROTA (cartões de veículos)
+   ========================================================================== */
+.fleet{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.car{border:1px solid #292929;background:#111;border-radius:23px;padding:27px;min-height:330px;position:relative;overflow:hidden;transition:.35s}.car:hover{transform:translateY(-6px);border-color:var(--yellow)}
+.car-art{height:170px;margin:-27px -27px 20px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:90px;color:#333;background:#181818}
+.car-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.car:hover .car-art img{transform:scale(1.06)}
+.car h3{font:700 25px Montserrat;letter-spacing:-.05em}.car p{font-size:12px;color:#999;line-height:1.6}.car-meta{display:flex;gap:20px;margin-top:18px;font-size:10px;color:#777}.car-meta b{color:var(--yellow)}
+
+/* ==========================================================================
+   13. TESTEMUNHOS / AVALIAÇÕES
+   ========================================================================== */
+.review-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:80px}.quote{font:600 clamp(35px,5vw,67px)/.95 Montserrat;letter-spacing:-.065em}.quote em{font-style:normal;color:var(--yellow)}.review-side{border-left:1px solid var(--line);padding-left:35px}.review-side strong{font:700 50px Montserrat;letter-spacing:-.07em;color:var(--yellow)}.review-side p{color:#777;font-size:13px;line-height:1.6}
+
+/* ==========================================================================
+   14. FAQ (acordeão)
+   ========================================================================== */
+.faq{max-width:900px}.faq-item{border-top:1px solid var(--line)}.faq-q{width:100%;display:flex;justify-content:space-between;text-align:left;padding:25px 0;background:none;font:600 18px Montserrat;letter-spacing:-.03em}.faq-q:hover{color:var(--yellow)}.faq-a{max-height:0;overflow:hidden;color:#777;font-size:13px;line-height:1.7;transition:.4s}.faq-item.open .faq-a{max-height:180px;padding-bottom:24px}.plus{font-size:25px;font-weight:300;transition:.3s}.faq-item.open .plus{transform:rotate(45deg);color:var(--yellow)}
+
+/* ==========================================================================
+   15. CTA FINAL (faixa amarela) + RODAPÉ
+   ========================================================================== */
+.cta{background:var(--yellow);padding:100px 0}.cta-inner{display:flex;justify-content:space-between;align-items:end;gap:30px}.cta h2{max-width:800px}.cta-btn{background:var(--black);color:#fff;padding:16px 23px;border-radius:100px;font-size:13px;font-weight:700;white-space:nowrap;transition:.3s}.cta-btn:hover{background:#fff;color:var(--black)}
+.footer{background:#090909;color:#fff;padding:75px 0 25px}.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}.footer-logo{font:800 42px Montserrat;letter-spacing:-.08em}.footer-logo span{color:var(--yellow)}.footer p,.footer a{color:#888;font-size:12px;line-height:1.7;display:block;margin:7px 0}.footer a:hover{color:var(--yellow)}.footer h4{font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:#555}.bottom{border-top:1px solid #222;margin-top:55px;padding-top:20px;color:#555;font-size:10px;display:flex;justify-content:space-between}
+
+/* ==========================================================================
+   16. ANIMAÇÕES DE ENTRADA
+   ========================================================================== */
+.reveal{opacity:0;transform:translateY(35px);transition:1s var(--ease)}.reveal.show{opacity:1;transform:none}
+
+/* ==========================================================================
+   17. RESPONSIVO (tablet e telemóvel)
+   ========================================================================== */
+@media(max-width:1000px){
+   .hero-logo{
+      width:280px;top:40px;right:30px
+   }
+   .nav-center{
+      display:none
+   }
+   .booking{
+      grid-template-columns:1fr 1fr
+   }
+   .book-btn{
+      height:52px
+   }
+   .destinations{
+      grid-template-columns:1fr 1fr;grid-template-rows:350px 280px
+   }
+   .dest:first-child{
+      grid-row:span 2
+   }
+   .process{
+      grid-template-columns:1fr 1fr
+   }
+   .step:nth-child(2){
+      border-right:0
+   }
+   .split,.review-grid{
+      grid-template-columns:1fr;gap:45px
+   }
+   .visual{
+      height:500px
+   }
+   .fleet{
+      grid-template-columns:1fr
+   }
+   .footer-grid{
+      grid-template-columns:1fr 1fr
+   }
+}
+@media(max-width:650px){
+   .hero-copy{
+      padding-left:0;padding-right:0
+   }
+   .hero-logo{
+      display:none
+   }
+   .container{
+      width:calc(100% - 28px)
+   }
+   .cursor{
+      display:none
+   }
+   .nav{
+      padding:17px 0
+   }
+   .hero{
+      min-height:700px
+   }
+   .hero h1{
+      font-size:58px
+   }
+   .hero-sub{
+      display:block;margin-top:28px
+   }
+   .hero-stats{
+      margin-top:25px;gap:20px
+   }
+   .booking-shell{
+      margin-top:-25px
+   }
+   .booking{
+      grid-template-columns:1fr;padding:8px
+   }
+   .booking-trust{
+      justify-content:flex-start;flex-wrap:wrap
+   }.section{
+      padding:80px 0
+   }
+   .head{
+      display:block
+   }
+   .desc{
+      margin-top:22px
+   }
+   .destinations{
+      display:block
+   }
+   .dest{
+      height:300px;margin-bottom:10px
+   }
+   .process{
+      grid-template-columns:1fr
+   }
+   .step{
+      border-right:0;border-bottom:1px solid #292929
+   }
+   .num{
+      margin-bottom:35px
+   }
+   .visual{
+      height:400px
+   }
+   .cta-inner{
+      display:block
+   }
+   .cta-btn{
+      display:inline-block;margin-top:28px
+   }
+   .footer-grid{
+      grid-template-columns:1fr 1fr
+   }
+   .bottom{
+      display:block
+   }
+   .bottom span{
+      display:block;margin-top:8px
+   }
+   .menu-grid{
+      grid-template-columns:1fr
+   }
+   .menu-info{
+      display:none
+   }
+}
+/* ==========================================
+   AVV - CORREÇÃO DOS CARTÕES NO MOBILE
+   ========================================== */
+
+@media (max-width: 650px) {
+
+    .destinations {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .dest,
+    .dest:first-child {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 300px;
+        min-height: 300px;
+        margin: 0;
+        grid-row: auto;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .dest-info {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        z-index: 3;
+    }
+
+    .dest-info h3 {
+        font-size: 25px;
+        line-height: 1.15;
+    }
+
+    .dest-info p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+}
+
+/* ==========================================
+   AVV - CORREÇÃO DO FUNDO NO MOBILE
+   ========================================== */
+
+@media (max-width: 650px) {
+
+    .booking-shell {
+        margin-top: -25px;
+        background: #090909;
+    }
+
+    .booking-shell::before {
+        top: 0;
+
+        background: linear-gradient(
+            to bottom,
+            #090909 0%,
+            #090909 35%,
+            #242321 65%,
+            #f4f1ea 100%
+        );
+    }
+
+}
+/* ==========================================
+   AVV - ANIMAÇÕES DO HERO
+   ========================================== */
+
+@keyframes avvFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1 {
+    animation: avvFadeUp 1.1s ease-out both;
+    animation-delay: 0.2s;
+}
+/* Texto superior ao título */
+.hero-kicker {
+    animation: avvFadeUp 0.9s ease-out both;
+    animation-delay: 0.1s;
+}
+
+/* Descrição e estatísticas */
+.hero-sub {
+    animation: avvFadeUp 1.1s ease-out both;
+    animation-delay: 0.5s;
+}
+@keyframes avvLogoEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.hero-logo {
+    animation: avvLogoEnter 1.5s ease-out both;
+    animation-delay: 0.4s;
+}
+@keyframes avvBookingEnter {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.booking-shell > .container {
+    animation: avvBookingEnter 1s ease-out both;
+    animation-delay: 0.7s;
+}
+.booking {
+    transition:
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.booking:hover {
+    border-color: rgba(201, 162, 39, 1);
+
+    box-shadow:
+        0 0 18px rgba(201, 162, 39, 0.30),
+        0 0 45px rgba(201, 162, 39, 0.15),
+        0 25px 70px rgba(0, 0, 0, 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero h1,
+    .hero-kicker,
+    .hero-sub,
+    .hero-logo,
+    .booking-shell > .container {
+        animation: none !important;
+    }
+
+    .booking {
+        transition: none;
+    }
+}
+
+/* =========================================
+   AVV - FORMULÁRIO DESKTOP EM UMA LINHA
+   ========================================= */
+
+@media (min-width: 1001px) {
+
+    .booking {
+        grid-template-columns:
+            150px
+            minmax(0, 1.4fr)
+            minmax(0, 1.4fr)
+            155px
+            115px
+            115px
+            165px;
+
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .booking > .trip-switch,
+    .booking > .field,
+    .booking > .book-btn {
+        grid-column: auto;
+        min-width: 0;
+    }
+
+    .booking > .book-btn {
+        width: 100%;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+
+    .return-fields {
+        grid-column: 1 / -1;
+    }
+}
+
+/* =========================================================
+   AVV TRAVEL — SECÇÃO DE CONTACTO
+   ========================================================= */
+
+#contato {
+    scroll-margin-top: 70px;
+}
+
+/* Estrutura principal */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 50px;
+    align-items: stretch;
+}
+
+/* Lado esquerdo — informações */
+.contact-info {
+    background: #111;
+    color: #fff;
+    border-radius: 26px;
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 490px;
+}
+
+.contact-info-title {
+    font: 700 clamp(27px, 3vw, 40px)/1.1 Montserrat, sans-serif;
+    letter-spacing: -.05em;
+    margin-bottom: 35px;
+}
+
+.contact-detail {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,.15);
+}
+
+.contact-detail span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: var(--yellow);
+    margin-bottom: 10px;
+}
+
+.contact-detail a,
+.contact-detail p {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.contact-detail a:hover {
+    color: var(--yellow);
+}
+
+/* Lado direito — formulário */
+.contact-form {
+    background: #ebe8e1;
+    border-radius: 26px;
+    padding: 40px;
+}
+
+.contact-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.contact-field {
+    background: #fff;
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    transition: border-color .25s;
+}
+
+.contact-field:focus-within {
+    border-color: var(--yellow);
+}
+
+.contact-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111;
+    font: 500 14px "DM Sans", sans-serif;
+}
+
+.contact-field textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.6;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+    color: #999;
+}
+
+.contact-full {
+    grid-column: 1 / -1;
+}
+
+/* Botão de envio */
+.contact-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--yellow);
+    color: #090909;
+    padding: 22px 25px;
+    margin-top: 12px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .3s, transform .3s;
+}
+
+.contact-submit:hover {
+    background: #e4bb40;
+    transform: translateY(-2px);
+}
+
+.contact-submit span {
+    font-size: 23px;
+}
+
+.contact-note {
+    color: #777;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 15px 0 0;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-info {
+        min-height: auto;
+        gap: 15px;
+    }
+}
+
+/* Telemóvel */
+@media (max-width: 650px) {
+    .contact-info,
+    .contact-form {
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .contact-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-full {
+        grid-column: 1;
+    }
+
+    .contact-info-title {
+        font-size: 29px;
+    }
+
+    .contact-field {
+        padding: 16px;
+    }
+}
+
+/* ==========================================
+   AVV — CONTACTO MAIS COMPACTO
+   ========================================== */
+
+/* Aproximar os dois cartões */
+.contact-layout {
+    gap: 28px;
+    align-items: start;
+}
+
+/* Reduzir a altura do cartão esquerdo */
+.contact-info {
+    min-height: 0;
+    padding: 32px;
+    justify-content: flex-start;
+    gap: 0;
+}
+
+.contact-info-title {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+/* Aproximar telefone, e-mail e localização */
+.contact-detail {
+    padding: 14px 0;
+}
+
+/* Compactar o formulário */
+.contact-form {
+    padding: 28px;
+}
+
+.contact-fields {
+    gap: 10px;
+}
+
+.contact-field {
+    padding: 14px 16px;
+}
+
+.contact-field label {
+    margin-bottom: 7px;
+}
+
+/* Campo de mensagem mais baixo */
+.contact-field textarea {
+    min-height: 80px;
+    height: 90px;
+}
+
+/* Botão de envio */
+.contact-submit {
+    padding: 17px 22px;
+    margin-top: 10px;
+}
+
+/* Nota abaixo do botão */
+.contact-note {
+    margin-top: 10px;
+}
+
+/* Ajustes para telemóvel */
+@media (max-width: 650px) {
+    .contact-info,
+    .contact-form {
+        padding: 22px;
+    }
+
+    .contact-info-title {
+        font-size: 26px;
+    }
+}
+
+/* ==========================================
+   AVV — BOTÃO VOLTAR AO TOPO
+   ========================================== */
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 500;
+
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+
+    background: #111;
+    color: var(--yellow);
+    border: 1px solid rgba(201, 162, 39, .65);
+
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease,
+        transform .3s ease,
+        background .3s ease;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--yellow);
+    color: #111;
+    transform: translateY(-4px);
+}
+
+/* Telemóvel */
+@media (max-width: 650px) {
+    .back-to-top {
+        width: 46px;
+        height: 46px;
+        right: 18px;
+        bottom: 20px;
+        font-size: 23px;
+    }
+}
+
+/* Respeitar utilizadores que preferem menos animações */
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: none;
+    }
+}
+/* ==========================================
+   AVV — AJUSTE DA ÂNCORA DO FORMULÁRIO
+   ========================================== */
+
+#reservar {
+    scroll-margin-top: 580px;
+}
+/* AVV — AJUSTE DA ÂNCORA DE CONTACTO */
+
+#contato {
+    scroll-margin-top: 0;
+    padding-top: 65px;
+}
+
+@media (max-width: 650px) {
+    #contato {
+        padding-top: 65px;
+    }
+}
+
+/* ==========================================
+   AVV — SELECT PERSONALIZADO DE PASSAGEIROS
+   ========================================== */
+
+/* Mantém o select original acessível ao formulário */
+#passengers.avv-native-select {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Campo que contém o seletor */
+.avv-select-field {
+    position: relative;
+    overflow: visible;
+}
+
+/* Botão visível */
+.avv-select-trigger {
+    width: 100%;
+    min-height: 25px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+
+    background: transparent;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.avv-select-trigger .avv-chevron {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-right: 2px solid var(--yellow);
+    border-bottom: 2px solid var(--yellow);
+    transform: rotate(45deg);
+    transition: transform .25s ease;
+}
+
+.avv-select-field.avv-open .avv-chevron {
+    transform: rotate(225deg);
+}
+
+/* Menu flutuante */
+.avv-select-menu {
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 0;
+    width: max(100%, 145px);
+    z-index: 1000;
+
+    padding: 6px;
+    background: #171717;
+    border: 1px solid rgba(201, 162, 39, .45);
+    border-radius: 13px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+}
+
+.avv-select-field.avv-open .avv-select-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Cada opção */
+.avv-select-option {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    margin: 2px 0;
+
+    border-radius: 8px;
+    background: transparent;
+    color: #eee;
+
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.avv-select-option:hover {
+    background: #292929;
+    color: var(--yellow);
+}
+
+.avv-select-option.selected {
+    background: var(--yellow);
+    color: #111;
+    font-weight: 700;
+}
+
+.avv-select-trigger:focus-visible,
+.avv-select-option:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .avv-select-menu,
+    .avv-select-trigger .avv-chevron {
+        transition: none;
+    }
+}
+
+/* ==========================================
+   AVV — SELECT PREMIUM DE CONTACTO
+   ========================================== */
+
+.contact-form .avv-select-field {
+    position: relative;
+    overflow: visible;
+}
+
+/* Esconder visualmente o select original */
+#contactSubject.avv-native-select {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Botão de seleção */
+.contact-form .avv-select-trigger {
+    color: #111;
+    font: 500 14px "DM Sans", sans-serif;
+    min-height: 25px;
+}
+
+/* Menu flutuante */
+.contact-form .avv-select-menu {
+    width: 100%;
+    background: #fff;
+    border: 1px solid rgba(201,162,39,.5);
+    border-radius: 14px;
+    padding: 7px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.13);
+}
+
+/* Opções */
+.contact-form .avv-select-option {
+    background: transparent;
+    color: #333;
+    font-size: 13px;
+    padding: 13px 15px;
+    border-radius: 9px;
+}
+
+.contact-form .avv-select-option:hover {
+    background: #f5f0df;
+    color: #111;
+}
+
+.contact-form .avv-select-option.selected {
+    background: var(--yellow);
+    color: #111;
+    font-weight: 700;
+}
+
+.contact-form .avv-chevron {
+    border-color: var(--yellow);
+}
+
+/* IDIOMAS — alternar entre PT e EN no cabeçalho */
+.avv-lang {display:inline-flex;align-items:center;gap:7px;font-size:12px;white-space:nowrap;}
+.avv-lang a {opacity:.62;color:#fff;transition:opacity .2s,color .2s;}
+.avv-lang a.is-active,.avv-lang a:hover {opacity:1;color:var(--yellow);}
+.avv-lang span {opacity:.35;}
