@@ -9,14 +9,112 @@ function avv_text($key) { global $t; return htmlspecialchars($t[$key] ?? $key, E
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang === "en" ? "en" : "pt-PT" ?>">
+
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#0b0b0b">
-    <link rel="shortcut icon" href="img/logo/logo_avv.png" type="img/png">
-    <title><?= $lang === "en" ? "AVV - Executive Transport & Travel" : "AVV - Transportes Executivo & Viagens" ?></title>
-    <link rel="stylesheet" href="assets/css/site.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="theme-color" content="#0b0b0b">
+      <!-- FAVICON -->
+      <link
+          rel="icon"
+          href="img/logo/logo_avv.png"
+          type="image/png"
+      >
+      <?php
+      // Configurações SEO por idioma
+      $seo = [
+          'pt' => [
+              'title' => 'AVV Travel | Transporte Executivo e Transfers em Portugal',
+              'description' => 'AVV Travel oferece transporte executivo, transfers privados e viagens personalizadas em Portugal. Conforto, segurança e profissionalismo em cada viagem.'
+          ],
+          'en' => [
+              'title' => 'AVV Travel | Executive Transport & Private Transfers',
+              'description' => 'AVV Travel offers executive transportation, private transfers and personalized travel services in Portugal. Comfort, safety and professionalism on every journey.'
+          ]
+      ];
+      $currentLang = $lang === 'en' ? 'en' : 'pt';
+      $currentSeo = $seo[$currentLang];
+      // URLs oficiais do site
+      $seoUrls = [
+          'pt' => 'https://www.avvtravel.com/?lang=pt',
+          'en' => 'https://www.avvtravel.com/?lang=en'
+      ];
+      $canonical = $seoUrls[$currentLang];
+      ?>
+      <!-- SEO PRINCIPAL -->
+      <title><?= htmlspecialchars($currentSeo['title'], ENT_QUOTES, 'UTF-8') ?></title>
+      <meta
+          name="description"
+          content="<?= htmlspecialchars($currentSeo['description'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <meta name="robots" content="index, follow">
+      <!-- URL CANÔNICA -->
+      <link
+          rel="canonical"
+          href="<?= htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <!-- IDIOMAS -->
+      <link
+          rel="alternate"
+          hreflang="pt-PT"
+          href="<?= htmlspecialchars($seoUrls['pt'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <link
+          rel="alternate"
+          hreflang="en"
+          href="<?= htmlspecialchars($seoUrls['en'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <link
+          rel="alternate"
+          hreflang="x-default"
+          href="<?= htmlspecialchars($seoUrls['pt'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <!-- OPEN GRAPH - FACEBOOK / WHATSAPP -->
+      <meta property="og:type" content="website">
+      <meta property="og:site_name" content="AVV Travel">
+      <meta
+          property="og:title"
+          content="<?= htmlspecialchars($currentSeo['title'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <meta
+          property="og:description"
+          content="<?= htmlspecialchars($currentSeo['description'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <meta
+          property="og:url"
+          content="<?= htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <meta
+          property="og:image"
+          content="https://www.avvtravel.com/img/logo/logo_avv.png"
+      >
+      <meta property="og:locale" content="<?= $currentLang === 'en' ? 'en_GB' : 'pt_PT' ?>">
+      <!-- TWITTER / X -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta
+          name="twitter:title"
+          content="<?= htmlspecialchars($currentSeo['title'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <meta
+          name="twitter:description"
+          content="<?= htmlspecialchars($currentSeo['description'], ENT_QUOTES, 'UTF-8') ?>"
+      >
+      <!-- DADOS ESTRUTURADOS -->
+      <script type="application/ld+json">
+      <?= json_encode([
+          '@context' => 'https://schema.org',
+          '@type' => 'Organization',
+          '@id' => 'https://www.avvtravel.com/#organization',
+          'name' => 'AVV Travel',
+          'url' => 'https://www.avvtravel.com/',
+          'logo' => 'https://www.avvtravel.com/img/logo/logo_avv.png',
+          'description' => $currentSeo['description']
+      ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?>
+      </script>
+      <!-- CSS -->
+      <link rel="stylesheet" href="assets/css/site.css">
   </head>
+
   <body>
         <!-- AVV — VOLTAR AO TOPO -->
     <button id="backToTop" class="back-to-top"
